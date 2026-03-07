@@ -1,0 +1,499 @@
+{% extends 'base.html' %}
+{% block title %}Contact Us | Rushabh InfoTech{% endblock %}
+{% block body_class %}page-contact{% endblock %}
+{% block content %}
+
+<style>
+/* ================= PAGE BASE ================= */
+.contact-page{
+  background:linear-gradient(135deg,#f8fafc,#e2e8f0);
+}
+
+/* ================= HERO ================= */
+.contact-hero{
+  padding:160px 40px 90px;
+  background:
+    linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.85)),
+    url("/static/images/services-hero-bg.jpg") center/cover no-repeat;
+  text-align:center;
+  color:#fff;
+}
+.contact-hero h1{font-size:56px;margin-bottom:12px}
+.contact-hero h3{color:#60a5fa;margin-bottom:18px}
+.contact-hero p{max-width:720px;margin:auto;color:#cbd5e1}
+
+/* ================= FORM ================= */
+.contact-form-section{
+  padding:90px 30px;
+}
+.contact-form-container{
+  max-width:820px;
+  margin:auto;
+  background:#fff;
+  padding:50px;
+  border-radius:22px;
+  box-shadow:0 20px 40px rgba(0,0,0,.12);
+}
+.contact-form{
+  display:grid;
+  gap:26px;
+}
+.form-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+.form-group label{
+  font-weight:600;
+  margin-bottom:6px;
+  display:block;
+}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;
+  padding:14px 16px;
+  border-radius:12px;
+  border:2px solid #e5e7eb;
+}
+.form-group textarea{min-height:130px}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  border-color:#3b82f6;
+  outline:none;
+}
+.submit-btn{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:999px;
+  background:linear-gradient(135deg,#3b82f6,#1d4ed8);
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+}
+#formStatus{text-align:center;font-size:14px}
+
+/* ================= CONTACT INFO (COMPACT) ================= */
+.contact-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:26px;
+}
+
+.contact-card-link{
+  text-decoration:none;
+  color:inherit;
+}
+
+.contact-card{
+  background:#ffffff;
+  border-radius:16px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 12px 30px rgba(0,0,0,.1);
+  transition:.3s ease;
+
+  /* IMPORTANT PART */
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.contact-card h4{
+  margin:10px 0 6px;
+  font-size:18px;
+  font-weight:700;
+}
+
+.contact-card p{
+  font-size:14px;
+  color:#64748b;
+  line-height:1.5;
+}
+
+.contact-icon{
+  font-size:36px;
+}
+
+.contact-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 35px rgba(0,0,0,.15);
+}
+.
+/* ================= EMERGENCY CLEAN PROFESSIONAL ================= */
+
+
+.emergency-section{
+  width:100%;
+  max-width:900px;
+  margin:100px auto;
+  padding:60px 20px;
+  background:#0f172a;
+  color:#ffffff;
+  text-align:center;
+  border-radius:12px;
+}
+
+.emergency-section h2{
+  font-size:32px;
+  font-weight:600;
+  margin-bottom:20px;
+}
+
+.emergency-number a{
+  font-size:24px;
+  font-weight:700;
+  color:#fbbf24;
+  text-decoration:none;
+}
+
+.emergency-number a:hover{
+  text-decoration:underline;
+}
+
+
+/* ================= MOBILE FIX ================= */
+
+@media (max-width:768px){
+
+  .emergency-section{
+    margin:60px 15px;
+    padding:40px 15px;
+  }
+
+  .emergency-section h2{
+    font-size:24px;
+  }
+
+  .emergency-number a{
+    font-size:20px;
+  }
+
+}
+/* ================= SIMPLE EMERGENCY BOX ================= */
+
+.emergency-section{
+  width:100%;
+  max-width:900px;
+  margin:100px auto;
+  padding:60px 20px;
+  background:#0f172a;
+  color:#ffffff;
+  text-align:center;
+  border-radius:12px;
+}
+
+.emergency-section h2{
+  font-size:32px;
+  font-weight:600;
+  margin-bottom:20px;
+}
+
+.emergency-number a{
+  font-size:24px;
+  font-weight:700;
+  color:#fbbf24;
+  text-decoration:none;
+}
+
+.emergency-number a:hover{
+  text-decoration:underline;
+}
+
+
+/* ================= MOBILE FIX ================= */
+
+@media (max-width:768px){
+
+  .emergency-section{
+    margin:60px 15px;
+    padding:40px 15px;
+  }
+
+  .emergency-section h2{
+    font-size:24px;
+  }
+
+  .emergency-number a{
+    font-size:20px;
+  }
+
+}
+
+/* ================= MAP ================= */
+.map-section{
+  padding:90px 40px;
+  background:#fff;
+}
+.map-container iframe{
+  width:100%;
+  height:420px;
+  border-radius:18px;
+  border:0;
+}
+/* ================= BUSINESS HOURS ================= */
+.hours-section{
+  padding:70px 40px;
+  background:linear-gradient(135deg,#f8fafc,#e2e8f0);
+}
+
+.hours-box{
+  max-width:720px;
+  margin:auto;
+  background:#ffffff;
+  border-radius:20px;
+  padding:40px;
+  text-align:center;
+  box-shadow:0 15px 35px rgba(0,0,0,.12);
+}
+
+.hours-box h2{
+  font-size:32px;
+  margin-bottom:10px;
+  color:#0f172a;
+}
+
+.hours-box p{
+  color:#64748b;
+  margin-bottom:30px;
+}
+
+.hours-list{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+.hours-list li{
+  display:flex;
+  justify-content:space-between;
+  padding:14px 0;
+  border-bottom:1px solid #e5e7eb;
+  font-weight:600;
+  color:#1e293b;
+}
+
+.hours-list li:last-child{
+  border-bottom:none;
+}
+
+.hours-list span:last-child{
+  color:#2563eb;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:768px){
+  .form-row{grid-template-columns:1fr}
+  .contact-hero h1{font-size:38px}
+}
+</style>
+
+<div class="contact-page">
+
+<!-- HERO -->
+<section class="contact-hero">
+  <h1>CONTACT RUSHABH INFOTECH</h1>
+  <h3>We’re here to help you</h3>
+  <p>Sales, service or technical support — reach us anytime.</p>
+</section>
+
+<section class="contact-form-section">
+  <div class="section-header">
+    <h2 class="section-title">Send Us a Message</h2>
+    <p class="section-subtitle">
+      Fill out the form below and we'll contact you within 24 hours
+    </p>
+  </div>
+
+  <div class="contact-form-container">
+    <form
+      class="contact-form"
+      id="contactForm"
+      action="{% url 'contact' %}"
+      method="POST"
+    >
+      {% csrf_token %}
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">👤 Full Name *</label>
+          <input type="text" id="name" name="name" required placeholder="Enter your full name">
+        </div>
+
+        <div class="form-group">
+          <label for="email">✉️ Email Address *</label>
+          <input type="email" id="email" name="email" required placeholder="Enter your email address">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="phone">📞 Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+        </div>
+
+        <div class="form-group">
+          <label for="service">⚙️ Service Interested In</label>
+          <select id="service" name="service">
+            <option value="">Select a service</option>
+            <option value="Laptop & Desktop Sales & Service">Laptop & Desktop Sales & Service</option>
+            <option value="AMC (Annual Maintenance)">AMC (Annual Maintenance)</option>
+            <option value="CCTV Sales & Service">CCTV Sales & Service</option>
+            <option value="Networking & Firewall">Networking & Firewall</option>
+            <option value="Biometric & Access Control">Biometric & Access Control</option>
+            <option value="Printer Sales & Service">Printer Sales & Service</option>
+            <option value="Other Services">Other Services</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="message">💬 Message *</label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          rows="5"
+          placeholder="Describe your requirements or issues in detail"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary" style="width:100%;padding:16px;">
+          🚀 Send Message
+        </button>
+      </div>
+
+      <p id="formStatus" style="text-align:center;font-size:14px;margin-top:16px;"></p>
+
+      <p style="text-align:center;color:#64748b;font-size:13px;margin-top:10px;">
+        🔒 Your information is secure and will never be shared.
+      </p>
+
+    </form>
+  </div>
+</section>
+
+<!-- CONTACT INFO -->
+<section class="contact-info-section">
+  <div class="contact-grid">
+
+    <!-- GOOGLE MAP -->
+    <a href="https://maps.google.com/?q=Rushabh+Infotech+Paldi+Ahmedabad"
+       target="_blank"
+       class="contact-card-link">
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <h4>Visit Us</h4>
+        <p>
+          417, 4th Floor, Medicine Market,<br>
+          Opp Shefali Shopping Centre,<br>
+          Paldi, Ahmedabad - 380007
+        </p>
+      </div>
+    </a>
+
+    <!-- CALL -->
+    <a href="tel:+919879877877" class="contact-card-link">
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <h4>Call Us</h4>
+        <p>+91 98798 77877</p>
+      </div>
+    </a>
+
+    <!-- WHATSAPP -->
+    <a href="https://wa.me/919879877877"
+       target="_blank"
+       class="contact-card-link">
+      <div class="contact-card">
+        <div class="contact-icon">💬</div>
+        <h4>WhatsApp</h4>
+        <p>Chat with us instantly</p>
+      </div>
+    </a>
+
+    <!-- EMAIL -->
+    <a href="mailto:mktg.rushabhinfotech@gmail.com"
+       class="contact-card-link">
+      <div class="contact-card">
+        <div class="contact-icon">📧</div>
+        <h4>Email</h4>
+        <p>mktg.rushabhinfotech@gmail.com</p>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+
+<!-- EMERGENCY -->
+<section class="emergency-section">
+    <h2>24/7 Emergency Support</h2>
+    <p class="emergency-number">
+        <a href="tel:+919879877877">+91 98798 77877</a>
+    </p>
+</section>
+
+
+<!-- MAP -->
+<section class="map-section">
+  <div class="map-container">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29377.75530305227!2d72.5274330743164!3d23.015714700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e8548379b8ddf%3A0xf58dc4c0c75a7fce!2sRUSHABH%20INFOTECH!5e0!3m2!1sen!2sin!4v1770038677128!5m2!1sen!2sin" width="1500" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</section>
+<!-- BUSINESS HOURS -->
+<section class="hours-section">
+  <div class="hours-box">
+    <h2>🕒 Business Hours</h2>
+    <p>We are available during the following hours</p>
+
+    <ul class="hours-list">
+      <li><span>Monday – Saturday</span><span>10:00 AM – 8:00 PM</span></li>
+<!--      <li><span>Saturday</span><span>9:00 AM – 8:00 PM</span></li>-->
+      <li><span>Sunday</span><span>Week-Off</span></li>
+      <li><span>Emergency Support</span><span>24 × 7</span></li>
+    </ul>
+  </div>
+</section>
+</div>
+
+
+<!-- JS: DJANGO + FORMSPREE -->
+<script>
+const form = document.getElementById("contactForm");
+const status = document.getElementById("formStatus");
+
+form.addEventListener("submit", async function(e) {
+  e.preventDefault();
+  status.innerText = "Sending...";
+
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+      }
+    });
+
+    if (response.ok) {
+      status.innerText = "✅ Message sent successfully!";
+      form.reset();
+    } else {
+      status.innerText = "❌ Failed to send message.";
+    }
+
+  } catch (error) {
+    status.innerText = "❌ Server error. Please try again.";
+  }
+});
+
+</script>
+
+{% endblock %}

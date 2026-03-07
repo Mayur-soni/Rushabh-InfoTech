@@ -1,0 +1,276 @@
+{% extends 'base.html' %}
+{% block title %}Services | Rushabh InfoTech{% endblock %}
+{% block body_class %}page-services{% endblock %}
+{% block content %}
+
+<style>
+/* ================= HERO ================= */
+.services-hero{
+  padding:180px 60px 120px;
+  background:
+    linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.85)),
+    url("/static/images/services-hero-bg.jpg") center/cover no-repeat;
+  color:#fff;
+  text-align:center;
+}
+.services-hero h1{font-size:52px;margin-bottom:16px}
+.services-hero p{font-size:18px;color:#cbd5e1;max-width:760px;margin:auto}
+
+/* ================= SERVICES ================= */
+.services-container{
+  padding:100px 60px;
+  background:linear-gradient(135deg,#f8fafc,#e2e8f0);
+}
+
+.service-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:40px;
+}
+
+.service-card{
+  background:#fff;
+  border-radius:20px;
+  padding:38px;
+  box-shadow:0 15px 35px rgba(0,0,0,.12);
+  transition:.35s;
+}
+.service-card:hover{transform:translateY(-10px)}
+
+.service-icon{
+  width:70px;height:70px;
+  background:linear-gradient(135deg,#3b82f6,#1d4ed8);
+  color:#fff;
+  font-size:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:16px;
+  margin-bottom:22px;
+}
+
+.service-card h3{font-size:22px;color:#0f172a;margin-bottom:10px}
+.service-card p{color:#64748b;margin-bottom:14px}
+
+.price-range{
+  font-weight:700;
+  color:#1d4ed8;
+  margin-bottom:18px;
+}
+
+.view-btn{
+  background:#1d4ed8;
+  color:#fff;
+  border:none;
+  padding:12px 26px;
+  border-radius:999px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+.view-btn:hover{background:#2563eb}
+
+/* ================= MODAL ================= */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,.6);
+  backdrop-filter:blur(6px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:3000;
+}
+
+.modal-box{
+  background:#ffffff;
+  padding:40px;
+  border-radius:20px;
+  width:90%;
+  max-width:420px;
+  position:relative;
+  box-shadow:0 30px 60px rgba(0,0,0,.25);
+  animation:scaleIn .3s ease;
+}
+
+@keyframes scaleIn{
+  from{transform:scale(.9);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.modal-box h3{
+  margin-bottom:20px;
+  color:#0f172a;
+}
+
+.modal-box ul{
+  margin-bottom:30px;
+  padding-left:18px;
+}
+
+.modal-box li{
+  margin-bottom:10px;
+  color:#475569;
+}
+
+.modal-close{
+  position:absolute;
+  top:18px;
+  right:22px;
+  font-size:20px;
+  cursor:pointer;
+  color:#64748b;
+}
+
+.modal-close:hover{color:#0f172a}
+
+.modal-btn{
+  display:inline-block;
+  padding:12px 32px;
+  background:linear-gradient(135deg,#3b82f6,#1d4ed8);
+  color:#fff;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:600;
+}
+
+/* ================= INDUSTRIES ================= */
+.industry-section{
+  margin-top:120px;
+  text-align:center;
+}
+
+.industry-section h2{
+  font-size:36px;
+  color:#0f172a;
+}
+
+.industry-section p{
+  margin-top:8px;
+  color:#64748b;
+}
+
+.industry-grid{
+  margin-top:50px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+}
+
+.industry-card{
+  background:#ffffff;
+  border-radius:16px;
+  padding:30px;
+  font-weight:600;
+  color:#1e293b;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+  transition:.3s;
+}
+
+.industry-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 35px rgba(0,0,0,.12);
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:768px){
+  .services-hero{padding:140px 30px 90px}
+  .services-container{padding:70px 30px}
+}
+</style>
+
+<!-- HERO -->
+<section class="services-hero">
+<!--  <h1>OUR IT SERVICES</h1>-->
+    <h1>Serving Technology Better</h1>
+  <p>Reliable IT sales, service and infrastructure solutions for home, office and enterprise.</p>
+</section>
+
+<!-- SERVICES -->
+<section class="services-container">
+
+{% if services %}
+<div class="service-grid">
+  {% for service in services %}
+  <div class="service-card">
+    <div class="service-icon">{{ service.icon }}</div>
+    <h3>{{ service.title }}</h3>
+    <p>{{ service.short_description }}</p>
+    <div class="price-range">{{ service.price_range }}</div>
+
+    <button class="view-btn"
+      onclick="openModal(
+        '{{ service.title }}',
+        [{% for sub in service.sub_services.all %}
+          '{{ sub.name }}'{% if not forloop.last %},{% endif %}
+        {% endfor %}]
+      )">
+      View Sub-Services
+    </button>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p style="text-align:center;font-size:18px;color:#475569;">
+  No services available right now.
+</p>
+{% endif %}
+
+</section>
+
+<div class="modal-overlay" id="serviceModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal()">✕</span>
+    <h3 id="modalTitle"></h3>
+    <ul id="modalList"></ul>
+    <a href="/contact/" class="modal-btn">Contact Now</a>
+  </div>
+</div>
+
+
+
+<!-- INDUSTRIES -->
+<section class="industry-section">
+  <h2>Industries We Serve</h2>
+  <p>Reliable IT solutions across multiple business domains</p>
+
+  <div class="industry-grid">
+    <div class="industry-card">🏢 Corporate Offices</div>
+    <div class="industry-card">🏥 Hospitals & Clinics</div>
+    <div class="industry-card">🏫 Schools & Colleges</div>
+    <div class="industry-card">🏬 Retail Stores</div>
+    <div class="industry-card">🏠 Residential</div>
+    <div class="industry-card">🏭 Manufacturing Units</div>
+  </div>
+</section>
+
+<script>
+const modal = document.getElementById("serviceModal");
+const titleEl = document.getElementById("modalTitle");
+const listEl = document.getElementById("modalList");
+
+function openModal(title, items){
+  titleEl.innerText = title;
+  listEl.innerHTML = "";
+
+  items.forEach(item=>{
+    const li = document.createElement("li");
+    li.innerText = item;
+    listEl.appendChild(li);
+  });
+
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal(){
+  modal.style.display = "none";
+  document.body.style.overflow = "auto";
+}
+
+window.addEventListener("keydown", e => {
+  if(e.key === "Escape") closeModal();
+});
+</script>
+
+{% endblock %}

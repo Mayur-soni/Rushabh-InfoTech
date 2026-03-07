@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Legal | Rushabh InfoTech{% endblock %}
+{% block body_class %}page-legal{% endblock %}
+
+{% block content %}
+
+<style>
+.legal-section{
+  padding:120px 100px;
+}
+
+.legal-section h2{margin-top:40px;color:#020617;}
+.legal-section p{margin-top:10px;color:#475569;line-height:1.7;}
+
+@media(max-width:900px){
+  .legal-section{padding:80px 30px;}
+}
+</style>
+
+<section class="legal-section">
+  <h1>Legal Information</h1>
+
+  <h2>Privacy Policy</h2>
+  <p>We respect your privacy and ensure protection of personal data.</p>
+
+  <h2>Terms & Conditions</h2>
+  <p>By using our services, you agree to our standard service terms.</p>
+</section>
+
+{% endblock %}

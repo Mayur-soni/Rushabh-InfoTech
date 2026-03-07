@@ -1,0 +1,749 @@
+{% extends 'base.html' %}
+{% block title %}Why Choose Us | Rushabh InfoTech{% endblock %}
+{% block body_class %}page-why-us{% endblock %}
+{% block content %}
+
+<style>
+/* ================= WHY US PAGE STYLES ================= */
+.why-us-page {
+    background: var(--bg-page);
+    min-height: 100vh;
+}
+
+/* Hero Section */
+.why-us-hero {
+    background:
+    linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.85)),
+    url("/static/images/services-hero-bg.jpg") center/cover no-repeat;
+    color: var(--text-main);
+    padding: 180px 90px 120px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.why-us-hero::before,
+.why-us-hero::after {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(200px);
+    opacity: 0.15;
+    animation: drift 20s ease-in-out infinite;
+}
+
+.why-us-hero::before {
+    background: var(--primary-blue);
+    top: -200px;
+    left: -200px;
+}
+
+.why-us-hero::after {
+    background: #64748b;
+    bottom: -200px;
+    right: -200px;
+    animation-delay: 10s;
+}
+
+@keyframes drift {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(50px, -50px) rotate(90deg); }
+    50% { transform: translate(-50px, 50px) rotate(180deg); }
+    75% { transform: translate(50px, 50px) rotate(270deg); }
+}
+
+.why-us-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.why-us-hero h1 {
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+.why-us-hero p {
+    font-size: 18px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+/* Advantages Section */
+.advantages-section {
+    padding: 120px 90px;
+    background: var(--bg-page);
+}
+
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.advantage-card {
+    background: var(--bg-card);
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    text-align: left;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.advantage-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-blue), var(--dark-blue));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.advantage-card:hover::before {
+    transform: scaleX(1);
+}
+
+.advantage-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--light-blue);
+}
+
+.advantage-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-lg);
+    background: rgba(59, 130, 246, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    font-size: 36px;
+    color: var(--primary-blue);
+    transition: all 0.3s ease;
+}
+
+.advantage-card:hover .advantage-icon {
+    background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+    color: white;
+    transform: rotate(5deg);
+}
+
+.advantage-card h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 15px;
+}
+
+.advantage-card p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.advantage-features {
+    list-style: none;
+    padding: 0;
+    margin: 25px 0 0;
+}
+
+.advantage-features li {
+    padding: 10px 0;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.advantage-features li:last-child {
+    border-bottom: none;
+}
+
+.advantage-features li::before {
+    content: "✓";
+    color: #10b981;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Stats Section */
+.stats-section {
+    padding: 100px 90px;
+    background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-soft));
+    color: var(--text-main);
+    text-align: center;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.stat-number {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--primary-blue);
+    display: block;
+    line-height: 1;
+    margin-bottom: 15px;
+}
+
+.stat-label {
+    font-size: 16px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Certifications */
+.certifications-section {
+    padding: 100px 90px;
+    background: var(--bg-page);
+}
+
+.certifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.certification-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.certification-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-blue);
+}
+
+.cert-icon {
+    font-size: 48px;
+    color: var(--primary-blue);
+    margin-bottom: 20px;
+}
+
+.certification-card h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 10px;
+}
+
+.certification-card p {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Process Section */
+.process-section {
+    padding: 100px 90px;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+    position: relative;
+}
+
+.process-step {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 auto 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.step-number::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 100%;
+    height: 2px;
+    background: #e2e8f0;
+    z-index: 1;
+}
+
+.process-step:last-child .step-number::after {
+    display: none;
+}
+
+.process-step h4 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 15px;
+}
+
+.process-step p {
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* CTA Section */
+.why-us-cta {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-soft) 100%);
+    color: var(--text-main);
+    padding: 100px 90px;
+    border-radius: var(--radius-xl);
+    margin: 0 90px 120px;
+    text-align: center;
+}
+
+.why-us-cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(59, 130, 246, 0.1), transparent 70%);
+    animation: fadeInOut 10s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.3; }
+}
+
+.why-us-cta * {
+    position: relative;
+    z-index: 2;
+}
+
+.why-us-cta h2 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-main);
+}
+
+.why-us-cta p {
+    margin-top: 15px;
+    color: var(--text-muted);
+    font-size: 18px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .why-us-hero,
+    .advantages-section,
+    .stats-section,
+    .certifications-section,
+    .process-section {
+        padding: 100px 40px;
+    }
+
+    .why-us-cta {
+        margin: 0 40px 80px;
+        padding: 80px 40px;
+    }
+
+    .advantages-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .why-us-hero {
+        padding: 140px 20px 80px;
+    }
+
+    .why-us-hero h1 {
+        font-size: 42px;
+    }
+
+    .advantages-section,
+    .stats-section,
+    .certifications-section,
+    .process-section {
+        padding: 80px 20px;
+    }
+
+    .why-us-cta {
+        margin: 0 20px 60px;
+        padding: 60px 20px;
+    }
+
+    .advantages-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .process-steps {
+        grid-template-columns: 1fr;
+    }
+
+    .step-number::after {
+        display: none;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .why-us-hero h1 {
+        font-size: 36px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-number {
+        font-size: 36px;
+    }
+}
+</style>
+
+<div class="why-us-page">
+
+<!-- Hero Section -->
+<section class="why-us-hero">
+    <div class="why-us-hero-content">
+        <h1>WHY CHOOSE </h1>
+        <h1>RUSHABH INFOTECH?</h1>
+        <p>Experience the difference with our professional IT services. We're not just technicians; we're your technology partners dedicated to your success.</p>
+        <a href="/contact/" class="btn btn-primary">Get Free Consultation</a>
+    </div>
+</section>
+
+<!-- Advantages Section -->
+<section class="advantages-section">
+    <div class="section-header">
+        <div class="section-label">OUR ADVANTAGES</div>
+        <h2 class="section-title">What Makes Us Different</h2>
+        <p class="section-subtitle">We go beyond basic IT support to provide comprehensive solutions that drive your business forward.</p>
+    </div>
+
+    <div class="advantages-grid">
+        <div class="advantage-card">
+            <div class="advantage-icon">👨‍💼</div>
+            <h3>Certified Experts</h3>
+            <p>Our team holds industry certifications from Microsoft, Cisco, CompTIA, and other leading technology providers.</p>
+            <ul class="advantage-features">
+                <li>Microsoft Certified Professionals</li>
+                <li>Cisco Certified Network Associates</li>
+                <li>CompTIA A+ Certified Technicians</li>
+                <li>Continuous training & certification</li>
+            </ul>
+        </div>
+
+        <div class="advantage-card">
+            <div class="advantage-icon">⚡</div>
+            <h3>Rapid Response Times</h3>
+            <p>We understand that downtime costs money. That's why we guarantee quick response and resolution times.</p>
+            <ul class="advantage-features">
+                <li>Under 30-minute response time</li>
+                <li>24/7 emergency support</li>
+                <li>Same-day service for critical issues</li>
+                <li>Proactive monitoring & alerts</li>
+            </ul>
+        </div>
+
+        <div class="advantage-card">
+            <div class="advantage-icon">💰</div>
+            <h3>Transparent Pricing</h3>
+            <p>No hidden fees or surprise charges. We provide clear quotes and stand by our pricing with no compromise on quality.</p>
+            <ul class="advantage-features">
+                <li>Free initial consultation</li>
+                <li>Detailed quotes upfront</li>
+                <li>No hidden charges</li>
+                <li>Flexible payment options</li>
+            </ul>
+        </div>
+
+        <div class="advantage-card">
+            <div class="advantage-icon">🛡️</div>
+            <h3>Quality Assurance</h3>
+            <p>Every service we provide undergoes rigorous testing and quality checks to ensure perfect results.</p>
+            <ul class="advantage-features">
+                <li>Multi-step testing process</li>
+                <li>Quality control checklists</li>
+                <li>Follow-up verification</li>
+                <li>Satisfaction guarantee</li>
+            </ul>
+        </div>
+
+        <div class="advantage-card">
+            <div class="advantage-icon">💡</div>
+            <h3>Proactive Approach</h3>
+            <p>We don't wait for problems to occur. Our proactive monitoring prevents issues before they impact your business.</p>
+            <ul class="advantage-features">
+                <li>Predictive maintenance</li>
+                <li>Regular system audits</li>
+                <li>Security vulnerability scanning</li>
+                <li>Performance optimization</li>
+            </ul>
+        </div>
+
+        <div class="advantage-card">
+            <div class="advantage-icon">🤝</div>
+            <h3>Partnership Focus</h3>
+            <p>We view every client as a long-term partner, invested in your success and growth.</p>
+            <ul class="advantage-features">
+                <li>Dedicated account manager</li>
+                <li>Regular business reviews</li>
+                <li>Technology roadmap planning</li>
+                <li>Scalable solutions</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="section-header">
+        <div class="section-label">BY THE NUMBERS</div>
+        <h2 class="section-title" style="color: var(--text-main);">Our Track Record</h2>
+        <p class="section-subtitle" style="color: var(--text-muted);">Numbers that speak for themselves</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-item">
+            <span class="stat-number" data-count="500">0+</span>
+            <span class="stat-label">Happy Clients</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-count="1500">0+</span>
+            <span class="stat-label">Projects Completed</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-count="98">98%</span>
+            <span class="stat-label">Satisfaction Rate</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-count="15">15+</span>
+            <span class="stat-label">Years Experience</span>
+        </div>
+    </div>
+</section>
+
+<!-- Certifications -->
+<section class="certifications-section">
+    <div class="section-header">
+        <div class="section-label">CERTIFICATIONS</div>
+        <h2 class="section-title">Industry Recognized Expertise</h2>
+        <p class="section-subtitle">Our certifications validate our expertise and commitment to professional standards.</p>
+    </div>
+
+    <div class="certifications-grid">
+        <div class="certification-card">
+            <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
+            <h4>Microsoft Certified</h4>
+            <p>Expertise in Windows systems, Office 365, Azure, and Microsoft server technologies.</p>
+        </div>
+
+        <div class="certification-card">
+            <div class="cert-icon"><i class="fas fa-network-wired"></i></div>
+            <h4>Coreprix Authorised Dealer</h4>
+            <p>Official authorised partner for Coreprix networking and security solutions.</p>
+        </div>
+
+        <div class="certification-card">
+            <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
+            <h4>Vibranium Certified Super Hero</h4>
+            <p>Certified partner for Vibranium cybersecurity products & enterprise protection.</p>
+        </div>
+
+        <div class="certification-card">
+            <div class="cert-icon"><i class="fas fa-cloud"></i></div>
+            <h4>AWS Certified</h4>
+            <p>Cloud infrastructure and solutions with Amazon Web Services expertise.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Process Section -->
+<section class="process-section">
+    <div class="section-header">
+        <div class="section-label">OUR PROCESS</div>
+        <h2 class="section-title">How We Work</h2>
+        <p class="section-subtitle">Our systematic approach ensures efficient and effective service delivery every time.</p>
+    </div>
+
+    <div class="process-steps">
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <h4>Consultation</h4>
+            <p>We begin by understanding your specific needs through detailed consultation and assessment.</p>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <h4>Diagnosis</h4>
+            <p>Our experts diagnose the issue using advanced tools to identify the root cause accurately.</p>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <h4>Solution Proposal</h4>
+            <p>We provide transparent pricing and detailed solution proposal for your approval.</p>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <h4>Implementation</h4>
+            <p>Our certified technicians implement the solution efficiently with minimal disruption.</p>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">5</div>
+            <h4>Testing & Delivery</h4>
+            <p>We thoroughly test the solution and ensure everything works perfectly before delivery.</p>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">6</div>
+            <h4>Follow-up Support</h4>
+            <p>We provide follow-up support and are always available for any future needs.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="why-us-cta">
+    <h2>Ready to Experience the Difference?</h2>
+    <p>Join hundreds of satisfied clients who trust Rushabh InfoTech with their technology needs.</p>
+
+    <div class="cta-buttons">
+        <a href="/contact/" class="btn btn-primary">Get Free Consultation</a>
+        <a href="tel:+919876543210" class="btn btn-secondary">Call Now</a>
+    </div>
+</section>
+
+</div>
+
+<script>
+// Animate statistics counter
+document.addEventListener('DOMContentLoaded', function() {
+    const counters = document.querySelectorAll('.stat-number');
+
+    const animateCounter = (element) => {
+        const target = parseInt(element.getAttribute('data-count'));
+        const current = parseInt(element.textContent.replace('+', '').replace('%', '')) || 0;
+        const increment = target / 100;
+        let count = 0;
+
+        const updateCount = () => {
+            count += increment;
+            if (count < target) {
+                element.textContent = Math.floor(count) + (element.textContent.includes('+') ? '+' : element.textContent.includes('%') ? '%' : '');
+                setTimeout(updateCount, 20);
+            } else {
+                element.textContent = target + (element.textContent.includes('+') ? '+' : element.textContent.includes('%') ? '%' : '');
+            }
+        };
+
+        updateCount();
+    };
+
+    // Trigger animation when element is in view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => observer.observe(counter));
+
+    // Add hover effects to cards
+    const advantageCards = document.querySelectorAll('.advantage-card');
+    advantageCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+
+    // Add hover effects to stat items
+    const statItems = document.querySelectorAll('.stat-item');
+    statItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+        });
+
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+});
+</script>
+{% endblock %}

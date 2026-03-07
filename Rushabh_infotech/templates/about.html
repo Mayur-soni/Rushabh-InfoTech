@@ -1,0 +1,451 @@
+{% extends 'base.html' %}
+{% block title %}About Us | Rushabh InfoTech{% endblock %}
+{% block body_class %}page-about{% endblock %}
+{% block content %}
+
+<style>
+.about-hero {
+  position: relative;
+  padding: 180px 50px 120px;
+  background:
+    linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.85)),
+    url("/static/images/services-hero-bg.jpg") center/cover no-repeat;
+  color: #f1f5f9;
+  text-align: center;
+  overflow: hidden;
+}
+
+.about-hero h1 {
+  font-size: 52px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.about-hero p {
+  font-size: 18px;
+  color: #cbd5e1;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.about-container {
+  padding: 100px 50px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.about-story {
+  max-width: 1000px;
+  margin: 0 auto 100px;
+}
+
+.about-story h2 {
+  font-size: 36px;
+  color: #0f172a;
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.about-story h2::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+}
+
+.story-content {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 60px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+}
+
+.story-content p {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #475569;
+  margin-bottom: 25px;
+}
+
+.mission-vision {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  margin: 80px 0;
+}
+
+.mission-card, .vision-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 50px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border-top: 5px solid #3b82f6;
+  transition: transform 0.3s ease;
+}
+
+.mission-card:hover, .vision-card:hover {
+  transform: translateY(-10px);
+}
+
+.mission-card h3, .vision-card h3 {
+  font-size: 28px;
+  color: #0f172a;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.mission-card p, .vision-card p {
+  color: #64748b;
+  line-height: 1.8;
+  font-size: 17px;
+}
+
+.values-section {
+  margin: 100px 0;
+}
+
+.values-section h2 {
+  font-size: 36px;
+  color: #0f172a;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.value-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.value-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+  color: #ffffff;
+  font-size: 36px;
+}
+
+.value-card h4 {
+  font-size: 20px;
+  color: #0f172a;
+  margin-bottom: 15px;
+}
+
+.value-card p {
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.team-section {
+  margin: 100px 0;
+}
+
+.team-section h2 {
+  font-size: 36px;
+  color: #0f172a;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+}
+
+.team-member {
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.team-member:hover {
+  transform: translateY(-10px);
+}
+
+.member-image {
+  height: 250px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 80px;
+}
+
+.member-info {
+  padding: 30px;
+  text-align: center;
+}
+
+.member-info h4 {
+  font-size: 22px;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.member-info .position {
+  color: #3b82f6;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.member-info p {
+  color: #64748b;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.member-social {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.member-social a {
+  width: 40px;
+  height: 40px;
+  background: #f1f5f9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.member-social a:hover {
+  background: #3b82f6;
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+
+.achievements {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 60px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  margin-top: 80px;
+}
+
+.achievements h2 {
+  font-size: 36px;
+  color: #0f172a;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.achievement-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  text-align: center;
+}
+
+.achievement-stat h3 {
+  font-size: 48px;
+  color: #3b82f6;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.achievement-stat p {
+  color: #64748b;
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .about-hero,
+  .about-container {
+    padding: 80px 20px;
+  }
+
+  .about-hero h1 {
+    font-size: 36px;
+  }
+
+  .story-content {
+    padding: 30px;
+  }
+
+  .mission-vision {
+    grid-template-columns: 1fr;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .achievements {
+    padding: 40px 20px;
+  }
+}
+</style>
+
+<div class="about-hero">
+  <h1>ABOUT RUSHABH INFOTECH</h1>
+  <p>Your trusted partner in technology solutions since 2003. We're committed to providing exceptional IT services with professionalism and integrity.</p>
+</div>
+
+<div class="about-container">
+  <div class="about-story">
+    <h2>Our Story</h2>
+    <div class="story-content">
+      <p>Founded in 2003, Rushabh InfoTech began as a small computer retail shop with a vision to provide honest, reliable IT services to our local community. What started as a one-person operation has grown into a team of certified IT professionals serving businesses and individuals across the region.</p>
+
+      <p>Over the years, we've witnessed the rapid evolution of technology and have continuously adapted our services to meet the changing needs of our clients. From basic computer repairs to complex network infrastructure and cloud solutions, we've expanded our expertise while maintaining our core values of integrity, reliability, and customer-first service.</p>
+
+      <p>Today, Rushabh InfoTech stands as a leading IT service provider, recognized for our technical expertise, rapid response times, and commitment to client satisfaction. We've built lasting relationships with our clients by understanding their unique needs and providing tailored solutions that drive their success.</p>
+    </div>
+  </div>
+
+  <div class="mission-vision">
+    <div class="mission-card">
+      <h3>🏆 Our Mission</h3>
+      <p>To provide exceptional IT solutions that empower businesses and individuals to achieve their goals through reliable technology, expert guidance, and unparalleled customer service.</p>
+    </div>
+
+    <div class="vision-card">
+      <h3>🚀 Our Vision</h3>
+      <p>To be the most trusted and innovative IT service provider in our region, known for transforming technology challenges into opportunities for growth and success.</p>
+    </div>
+  </div>
+
+  <div class="values-section">
+    <h2>Our Core Values</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <h4>Integrity</h4>
+        <p>We believe in honest communication, transparent pricing, and ethical business practices in everything we do.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">⚡</div>
+        <h4>Reliability</h4>
+        <p>Our clients trust us because we deliver what we promise, when we promise it, every single time.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">🎯</div>
+        <h4>Expertise</h4>
+        <p>Continuous learning and certification ensure our team stays ahead of the latest technology trends.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">❤️</div>
+        <h4>Customer Focus</h4>
+        <p>We listen, understand, and tailor our solutions to meet the unique needs of each client.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="team-section">
+    <h2>Meet Our Leadership Team</h2>
+    <div class="team-grid">
+      <div class="team-member">
+        <div class="member-image">👨‍💻</div>
+        <div class="member-info">
+          <h4>Parth Mehta</h4>
+          <div class="position">Technical Head</div>
+          <p>Expert in network infrastructure with 15+ years experience managing enterprise IT systems.</p>
+          <div class="member-social">
+            <a href="tel:+917046372089">📱</a>
+            <a href="https://wa.me/917046372089">💼</a>
+            <a href="">✉️</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-member">
+        <div class="member-image">👨‍💼</div>
+        <div class="member-info">
+          <h4>Hardik Shah</h4>
+          <div class="position">Founder & CEO</div>
+          <p>25+ years of IT experience with certifications in network security and enterprise solutions.</p>
+          <div class="member-social">
+            <a href="tel:+919879877877">📱</a>
+            <a href="https://wa.me/919879877877">💼</a>
+            <a href="mailto:mktg.rushabhinfotech@gmail.com">✉️</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-member">
+        <div class="member-image">👨‍💻</div>
+        <div class="member-info">
+          <h4>?</h4>
+          <div class="position">Support Engineer</div>
+          <p>Specializes in customer service excellence and IT support solutions for small businesses.</p>
+          <div class="member-social">
+            <a href="">📱</a>
+            <a href="">💼</a>
+            <a href="">✉️</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="achievements">
+    <h2>Our Achievements</h2>
+    <div class="achievement-stats">
+      <div class="achievement-stat">
+        <h3>500+</h3>
+        <p>Satisfied Clients</p>
+      </div>
+      <div class="achievement-stat">
+        <h3>15+</h3>
+        <p>Years Experience</p>
+      </div>
+      <div class="achievement-stat">
+        <h3>98%</h3>
+        <p>Client Retention</p>
+      </div>
+      <div class="achievement-stat">
+        <h3>24/7</h3>
+        <p>Support Available</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
