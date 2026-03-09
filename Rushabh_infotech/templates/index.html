@@ -1,4 +1,6 @@
+
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Home | Rushabh InfoTech {% endblock %}
 {% block body_class %}page-home{% endblock %}
 {% block content %}
@@ -809,7 +811,7 @@ body::before {
   <div class="services">
     <div class="service-card">
       <div class="service-icon">💻</div>
-      <img src="static/images/laptop-repair.jpg" class="service-img">
+      <img src="{% static 'images/laptop-repair.jpg' %}" class="service-img">
       <h3>Computer & Laptop Repair</h3>
       <p>Complete hardware and software repair solutions for all makes and models.</p>
       <ul class="service-features">
@@ -823,7 +825,7 @@ body::before {
 
     <div class="service-card">
       <div class="service-icon">🛡️</div>
-      <img src="static/images/it-support-team.jpg" class="service-img">
+      <img src="{% static 'images/it-support-team.jpg' %}" class="service-img">
       <h3>IT Support & Maintenance</h3>
       <p>Ongoing IT support, troubleshooting, and optimization for businesses.</p>
       <ul class="service-features">
@@ -837,7 +839,7 @@ body::before {
 
     <div class="service-card">
       <div class="service-icon">🌐</div>
-      <img src="static/images/network-setup.jpg" class="service-img">
+      <img src="{% static 'images/network-setup.jpg' %}" class="service-img">
       <h3>Network Setup & Management</h3>
       <p>Secure network installation and maintenance for offices and homes.</p>
       <ul class="service-features">
@@ -858,7 +860,7 @@ body::before {
   <div class="why-header">
     <div class="why-badge">WHY CHOOSE US</div>
     <h2>Why Rushabh?</h2>
-    <img src="static/images/experienced-team.jpg" class="why-img">
+    <img src="{% static 'images/experienced-team.jpg' %}" class="why-img">
     <p>Discover what makes us the preferred choice for IT solutions across Ahmedabad</p>
   </div>
 
