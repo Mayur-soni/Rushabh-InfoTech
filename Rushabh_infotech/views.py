@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.sites import requests
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.shortcuts import render, redirect
-
+import threading
 from django.template.loader import render_to_string
 
 from Rushabh_infotech.models import Service, ContactMessage
@@ -33,11 +33,6 @@ def services_view(request):
 
 def contact_view(request):
 
-    # ✅ GET Request (Page Load)
-    if request.method == "GET":
-        return render(request, "contact.html")
-
-    # ✅ POST Request (Form Submit)
     if request.method == "POST":
 
         name = request.POST.get("name")
@@ -46,7 +41,7 @@ def contact_view(request):
         service = request.POST.get("service")
         message = request.POST.get("message")
 
-        # 1️⃣ Save to Admin
+        # Save message in database
         ContactMessage.objects.create(
             full_name=name,
             email=email,
@@ -55,7 +50,6 @@ def contact_view(request):
             message=message
         )
 
-        #2️⃣️ Send HTML Email to Customer
         subject = "We Received Your Request - Rushabh InfoTech"
 
         html_content = f"""
@@ -66,35 +60,28 @@ def contact_view(request):
         <p>Hi <strong>{name}</strong>,</p>
         <p>Thank you for contacting us regarding <b>{service}</b>.</p>
         <p>Our team will contact you shortly.</p>
-        <hr>
-        <p style="font-size:14px;color:#64748b;">
-        📞 +91 9879877877 <br>
-        📍 Ahmedabad, Gujarat
-        </p>
         </div>
         </body>
         </html>
         """
 
-        try:
-            email_message = EmailMultiAlternatives(
-                subject,
-                "",
-                settings.DEFAULT_FROM_EMAIL,
-                [email]
-            )
-            email_message.attach_alternative(html_content, "text/html")
-            email_message.send()
-        except:
-            pass
+        # EMAIL THREAD FUNCTION
+        def send_email():
 
-        # 3. Notify Admin
-        try:
-            send_mail(
-                subject="🚨 New Contact Message Received",
-                message=f"""
-New contact form submitted.
+            try:
+                email_message = EmailMultiAlternatives(
+                    subject,
+                    "",
+                    settings.DEFAULT_FROM_EMAIL,
+                    [email]
+                )
 
+                email_message.attach_alternative(html_content, "text/html")
+                email_message.send()
+
+                send_mail(
+                    "🚨 New Contact Message Received",
+                    f"""
 Name: {name}
 Email: {email}
 Phone: {phone}
@@ -103,16 +90,18 @@ Service: {service}
 Message:
 {message}
 """,
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=["mktg.rushabhinfotech@gmail.com"],
-                fail_silently=True,
-            )
-        except:
-            pass
+                    settings.DEFAULT_FROM_EMAIL,
+                    ["mktg.rushabhinfotech@gmail.com"],
+                    fail_silently=True
+                )
 
-        # ✅ IMPORTANT — RETURN RESPONSE
+            except Exception as e:
+                print("Email Error:", e)
+
+        # RUN THREAD
+        threading.Thread(target=send_email).start()
+
         return redirect("contact")
 
-    # ✅ Safety fallback (never return None)
     return render(request, "contact.html")
 
