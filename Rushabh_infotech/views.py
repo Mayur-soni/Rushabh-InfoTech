@@ -55,23 +55,7 @@ def contact_view(request):
             message=message
         )
 
-        # # 2️⃣ Send to Formspree
-        # try:
-        #     requests.post(
-        #         "https://formspree.io/f/mjgeeale",
-        #         data={
-        #             "name": name,
-        #             "email": email,
-        #             "phone": phone,
-        #             "service": service,
-        #             "message": message
-        #         },
-        #         timeout=5
-        #     )
-        # except:
-        #     pass
-
-        # 3️⃣ Send HTML Email to Customer
+        #2️⃣️ Send HTML Email to Customer
         subject = "We Received Your Request - Rushabh InfoTech"
 
         html_content = f"""
@@ -104,7 +88,7 @@ def contact_view(request):
         except:
             pass
 
-        # 4️⃣ Notify Admin
+        # 3. Notify Admin
         try:
             send_mail(
                 subject="🚨 New Contact Message Received",
